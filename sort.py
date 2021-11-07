@@ -20,23 +20,23 @@ class SortContainer():
         if custom == None:
             self.snapshot.append(self.elements)
         else:
-            self.snapshot.append(custom)
+            self.snapshot.append(custom[:])
     
     def clear_snapshot(self):
         self.snapshot = []
-        self.snapshot.append(self.elements)
+        self.snapshot.append(self.elements[:])
     
     def get_snapshot(self, index):
         return self.snapshot[index]
     
     def change_sort(self, type):
+        self.clear_snapshot()
         self.sort_type == type
 
         if self.sort_type == 'insertion':
             self.insertion_sort()
     
     def insertion_sort(self):
-        self.clear_snapshot()
         buffer = self.elements
         self.add_snapshot(buffer)
         for i in range(1, len(buffer)):
@@ -47,9 +47,9 @@ class SortContainer():
             while j >= 0 and buffer[j] > key_item:
                 buffer[j + 1] = buffer[j]
                 j -= 1
-                self.add_snapshot(buffer)
             
             buffer[j + 1] = key_item
+            self.add_snapshot(buffer)
 
 
 def quick_sort(elements):

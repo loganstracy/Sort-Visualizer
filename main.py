@@ -3,7 +3,7 @@ from pygame import draw
 from sort import SortContainer
 from time import sleep
 
-FPS = 10
+FPS = 30
 SCREEN_WIDTH = 1600
 SCREEN_HEIGHT = 900
 
