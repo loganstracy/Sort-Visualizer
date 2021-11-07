@@ -8,8 +8,9 @@ class SortContainer():
         self.sort_type = type
         self.change_sort(self.sort_type)
     
-    def new_elements(self):
-        e = [x+1 for x in range(self.size)]
+    def new_elements(self, size=440):
+        self.size = size
+        e = [x+1 for x in range(size)]
         shuffle(e)
         return e
 

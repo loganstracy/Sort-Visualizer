@@ -16,11 +16,12 @@ window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Sort Visualizer')
 clock = pygame.time.Clock()
 
-items = SortContainer()
+items = SortContainer(size=100)
 
 def draw_elements(snapshot, last_touched=None):
+    width = (SCREEN_WIDTH - 2) / len(snapshot) - BAR_SPACING
     for count, element in enumerate(snapshot):
-        pygame.draw.rect(window, (255,255,255), pygame.Rect((BAR_SPACING+BAR_WIDTH)*count, (SCREEN_HEIGHT-BAR_SPACING)-(element*BAR_HEIGHT_MULT), BAR_WIDTH, element*BAR_HEIGHT_MULT))
+        pygame.draw.rect(window, (255,255,255), pygame.Rect((BAR_SPACING+width)*count, (SCREEN_HEIGHT-BAR_SPACING)-(element*BAR_HEIGHT_MULT), width, element*BAR_HEIGHT_MULT))
 
 running = True
 sorting = False
