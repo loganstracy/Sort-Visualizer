@@ -3,7 +3,7 @@ from pygame import draw
 from sort import SortContainer
 from time import sleep
 
-FPS = 30
+FPS = 60
 SCREEN_WIDTH = 1600
 SCREEN_HEIGHT = 900
 
@@ -20,7 +20,7 @@ items = SortContainer()
 
 def draw_elements(snapshot, last_touched=None):
     for count, element in enumerate(snapshot):
-        pygame.draw.rect(window, (255,255,255), pygame.Rect((BAR_SPACING+BAR_WIDTH)*count, 0, BAR_WIDTH, element*BAR_HEIGHT_MULT))
+        pygame.draw.rect(window, (255,255,255), pygame.Rect((BAR_SPACING+BAR_WIDTH)*count, (SCREEN_HEIGHT-BAR_SPACING)-(element*BAR_HEIGHT_MULT), BAR_WIDTH, element*BAR_HEIGHT_MULT))
 
 running = True
 sorting = False

@@ -18,7 +18,7 @@ class SortContainer():
     
     def add_snapshot(self, custom=None):
         if custom == None:
-            self.snapshot.append(self.elements)
+            self.snapshot.append(self.elements[:])
         else:
             self.snapshot.append(custom[:])
     
