@@ -8,9 +8,8 @@ class SortContainer():
         self.sort_type = type
         self.change_sort(self.sort_type)
     
-    def new_elements(self, size=440):
-        self.size = size
-        e = [x+1 for x in range(size)]
+    def new_elements(self):
+        e = [x+1 for x in range(self.size)]
         shuffle(e)
         return e
 
@@ -36,10 +35,12 @@ class SortContainer():
 
         if self.sort_type == 'insertion':
             self.insertion_sort()
+        elif self.sort_type == 'heap':
+            self.heap_sort()
     
     def insertion_sort(self):
         buffer = self.elements
-        self.add_snapshot(buffer)
+        self.add_snapshot(buffer[:])
         for i in range(1, len(buffer)):
             key_item = buffer[i]
 
@@ -52,21 +53,30 @@ class SortContainer():
             buffer[j + 1] = key_item
             self.add_snapshot(buffer)
 
+    def heapify(self, buffer, n, i):
+        largest = i
+        l = 2 * i + 1
+        r = 2 * 1 + 2
 
-def quick_sort(elements):
-    if len(elements) < 2:
-        return elements
-    
-    low, same, high = [], [], []
+        if l < n and buffer[i] < buffer[l]:
+            largest = l
+        if r < n and buffer[largest] < buffer[r]:
+            largest = r
+        if largest != i:
+            buffer[i], buffer[largest] = buffer[largest], buffer[i]
+            self.add_snapshot(buffer[:])
+            self.heapify(buffer, i, 0)
+        self.add_snapshot(buffer[:])
 
-    pivot = elements[randint(0, len(elements) - 1)]
-
-    for item in elements:
-        if item < pivot:
-            low.append(item)
-        elif item == pivot:
-            same.append(item)
-        elif item > pivot:
-            high.append(item)
-    
-    return quick_sort(low) + same + quick_sort(high)
+    def heap_sort(self):
+        buffer = self.elements
+        self.add_snapshot(buffer[:])
+        n = len(buffer)
+        
+        for i in range(n//2, -1, -1):
+            self.heapify(buffer, n, i)
+        for i in range(n-1, 0, -1):
+            buffer[i], buffer[0] = buffer[0], buffer[i]
+            self.add_snapshot(buffer[:])
+            self.heapify(buffer, i, 0)
+        self.elements = buffer

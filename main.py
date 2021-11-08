@@ -3,7 +3,7 @@ from pygame import draw
 from sort import SortContainer
 from time import sleep
 
-FPS = 60
+FPS = 300
 SCREEN_WIDTH = 1600
 SCREEN_HEIGHT = 900
 
@@ -16,7 +16,7 @@ window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Sort Visualizer')
 clock = pygame.time.Clock()
 
-items = SortContainer(size=100)
+items = SortContainer(size=30, type='heap')
 
 def draw_elements(snapshot, last_touched=None):
     width = (SCREEN_WIDTH - 2) / len(snapshot) - BAR_SPACING
@@ -39,6 +39,7 @@ while running:
                 if not sorting:
                     if idx == 0:
                         sorting = True
+                        print(len(items.snapshot))
     
     # delta_time = clock.tick(FPS)
     clock.tick(FPS)
@@ -46,7 +47,7 @@ while running:
 
     window.fill((0,0,0))
 
-    if sorting and idx < len(items.elements): # TODO: figure out why display is already sorted on first frame
+    if sorting and idx < len(items.snapshot)-1:
         draw_elements(items.get_snapshot(idx))
         idx += 1
     else:
